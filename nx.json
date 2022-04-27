@@ -16,7 +16,6 @@
       }
     }
   },
-  "defaultProject": "backend",
   "generators": {
     "@nrwl/react": {
       "application": {

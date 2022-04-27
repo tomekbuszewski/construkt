@@ -2,7 +2,12 @@
   "name": "construkt",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "backend:serve": "nx serve backend",
+    "frontend:serve": "nx serve frontend",
+    "all:serve": "nx run-many --target serve --all",
+    "all:build": "nx run-many --target build --all"
+  },
   "private": true,
   "dependencies": {
     "core-js": "^3.6.5",
