@@ -1,0 +1,404 @@
+{
+  "graph": {
+    "nodes": {
+      "frontend-e2e": {
+        "name": "frontend-e2e",
+        "type": "e2e",
+        "data": {
+          "root": "packages/frontend-e2e",
+          "sourceRoot": "packages/frontend-e2e/src",
+          "projectType": "application",
+          "targets": {
+            "e2e": {
+              "executor": "@nrwl/cypress:cypress",
+              "options": {
+                "cypressConfig": "packages/frontend-e2e/cypress.json",
+                "devServerTarget": "frontend:serve:development"
+              },
+              "configurations": {
+                "production": {
+                  "devServerTarget": "frontend:serve:production"
+                }
+              }
+            },
+            "lint": {
+              "executor": "@nrwl/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "packages/frontend-e2e/**/*.{js,ts}"
+                ]
+              }
+            }
+          },
+          "tags": [],
+          "implicitDependencies": [
+            "frontend"
+          ],
+          "files": [
+            {
+              "file": "packages/frontend-e2e/.eslintrc.json",
+              "hash": "4c5989b23b5aa8cc7aba2a07d1ae7daee19c1555"
+            },
+            {
+              "file": "packages/frontend-e2e/cypress.json",
+              "hash": "ac6a29e25353159d09b0c61009b01883e3a315d2"
+            },
+            {
+              "file": "packages/frontend-e2e/project.json",
+              "hash": "d974665f11499cb472856c8e5021b879bb094458"
+            },
+            {
+              "file": "packages/frontend-e2e/src/fixtures/example.json",
+              "hash": "294cbed6ce9e0b948b787452e8676aee486cb3be"
+            },
+            {
+              "file": "packages/frontend-e2e/src/integration/app.spec.ts",
+              "hash": "2a559821c96f259a0c29b7136ce89adb587ea039"
+            },
+            {
+              "file": "packages/frontend-e2e/src/support/app.po.ts",
+              "hash": "a41358226e29371ba5c539df368ba46edad6b667"
+            },
+            {
+              "file": "packages/frontend-e2e/src/support/commands.ts",
+              "hash": "ac470cb0e8f7bab24b1de05967339a990a9aa5cb"
+            },
+            {
+              "file": "packages/frontend-e2e/src/support/index.ts",
+              "hash": "413b0ecfa58ce5246a74bac5ea3bbd63e609eb11"
+            },
+            {
+              "file": "packages/frontend-e2e/tsconfig.json",
+              "hash": "c4f818ecd40fbce82c3e08bf25cde3043970f8f3"
+            }
+          ]
+        }
+      },
+      "frontend": {
+        "name": "frontend",
+        "type": "app",
+        "data": {
+          "root": "packages/frontend",
+          "sourceRoot": "packages/frontend/src",
+          "projectType": "application",
+          "targets": {
+            "build": {
+              "executor": "@nrwl/web:webpack",
+              "outputs": [
+                "{options.outputPath}"
+              ],
+              "defaultConfiguration": "production",
+              "options": {
+                "compiler": "babel",
+                "outputPath": "dist/packages/frontend",
+                "index": "packages/frontend/src/index.html",
+                "baseHref": "/",
+                "main": "packages/frontend/src/main.tsx",
+                "polyfills": "packages/frontend/src/polyfills.ts",
+                "tsConfig": "packages/frontend/tsconfig.app.json",
+                "assets": [
+                  "packages/frontend/src/favicon.ico",
+                  "packages/frontend/src/assets"
+                ],
+                "styles": [],
+                "scripts": [],
+                "webpackConfig": "@nrwl/react/plugins/webpack"
+              },
+              "configurations": {
+                "development": {
+                  "extractLicenses": false,
+                  "optimization": false,
+                  "sourceMap": true,
+                  "vendorChunk": true
+                },
+                "production": {
+                  "fileReplacements": [
+                    {
+                      "replace": "packages/frontend/src/environments/environment.ts",
+                      "with": "packages/frontend/src/environments/environment.prod.ts"
+                    }
+                  ],
+                  "optimization": true,
+                  "outputHashing": "all",
+                  "sourceMap": false,
+                  "namedChunks": false,
+                  "extractLicenses": true,
+                  "vendorChunk": false
+                }
+              }
+            },
+            "serve": {
+              "executor": "@nrwl/web:dev-server",
+              "defaultConfiguration": "development",
+              "options": {
+                "buildTarget": "frontend:build",
+                "hmr": true
+              },
+              "configurations": {
+                "development": {
+                  "buildTarget": "frontend:build:development"
+                },
+                "production": {
+                  "buildTarget": "frontend:build:production",
+                  "hmr": false
+                }
+              }
+            },
+            "lint": {
+              "executor": "@nrwl/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "packages/frontend/**/*.{ts,tsx,js,jsx}"
+                ]
+              }
+            },
+            "test": {
+              "executor": "@nrwl/jest:jest",
+              "outputs": [
+                "coverage/packages/frontend"
+              ],
+              "options": {
+                "jestConfig": "packages/frontend/jest.config.ts",
+                "passWithNoTests": true
+              }
+            }
+          },
+          "tags": [],
+          "files": [
+            {
+              "file": "packages/frontend/.babelrc",
+              "hash": "f5a563dcfd994cf106a571ae7180a723d7911bcb"
+            },
+            {
+              "file": "packages/frontend/.browserslistrc",
+              "hash": "f1d12df4faa25ab7f0f03196105e957395f609af"
+            },
+            {
+              "file": "packages/frontend/.eslintrc.json",
+              "hash": "734ddaceea447738208c9519158ad6b3062f3929"
+            },
+            {
+              "file": "packages/frontend/jest.config.ts",
+              "hash": "9eb925f209310873adc151c8ef4d69bd2a79e446"
+            },
+            {
+              "file": "packages/frontend/project.json",
+              "hash": "50837b062969d10b97bb8be6f48045475fd5525c"
+            },
+            {
+              "file": "packages/frontend/src/app/app.spec.tsx",
+              "hash": "5587996cba96d9535292e0fd083e1dfca1e9baa2",
+              "deps": [
+                "npm:@testing-library/react"
+              ]
+            },
+            {
+              "file": "packages/frontend/src/app/app.tsx",
+              "hash": "674b52b1cef7928190c03671dc2b763b8b2ef84c",
+              "deps": [
+                "npm:styled-components"
+              ]
+            },
+            {
+              "file": "packages/frontend/src/app/nx-welcome.tsx",
+              "hash": "9ac0253ae7508009437a648597ac3f2c286976e7"
+            },
+            {
+              "file": "packages/frontend/src/assets/.gitkeep",
+              "hash": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "file": "packages/frontend/src/environments/environment.prod.ts",
+              "hash": "c9669790be176ac85a5d8c11278875c2f52dc507"
+            },
+            {
+              "file": "packages/frontend/src/environments/environment.ts",
+              "hash": "7ed83767fff25adfed19d52b2821a432f8ed18b1"
+            },
+            {
+              "file": "packages/frontend/src/favicon.ico",
+              "hash": "317ebcb2336e0833a22dddf0ab287849f26fda57"
+            },
+            {
+              "file": "packages/frontend/src/index.html",
+              "hash": "1f7f6f7efc5ba716c907f566d810cb4d17630f73"
+            },
+            {
+              "file": "packages/frontend/src/main.tsx",
+              "hash": "a50075752fb560800b2fea8d465a856615659bd3",
+              "deps": [
+                "npm:react",
+                "npm:react-dom"
+              ]
+            },
+            {
+              "file": "packages/frontend/src/polyfills.ts",
+              "hash": "41aa809057c1581b39eb2f69f1ea0c85fbed51bf",
+              "deps": [
+                "npm:core-js",
+                "npm:regenerator-runtime"
+              ]
+            },
+            {
+              "file": "packages/frontend/tsconfig.app.json",
+              "hash": "af84f21cfc8066d0302f5772b7c157e81d418617"
+            },
+            {
+              "file": "packages/frontend/tsconfig.json",
+              "hash": "9657042e495d5b69d338455a91b5fcaae1bddff3"
+            },
+            {
+              "file": "packages/frontend/tsconfig.spec.json",
+              "hash": "b8a950754b6152f8b12188ac8bd1d289ccbf57ce"
+            }
+          ]
+        }
+      },
+      "backend": {
+        "name": "backend",
+        "type": "app",
+        "data": {
+          "root": "packages/backend",
+          "sourceRoot": "packages/backend/src",
+          "projectType": "application",
+          "targets": {
+            "build": {
+              "executor": "@nrwl/node:webpack",
+              "outputs": [
+                "{options.outputPath}"
+              ],
+              "options": {
+                "outputPath": "dist/packages/backend",
+                "main": "packages/backend/src/main.ts",
+                "tsConfig": "packages/backend/tsconfig.app.json"
+              },
+              "configurations": {
+                "production": {
+                  "optimization": true,
+                  "extractLicenses": true,
+                  "inspect": false
+                }
+              }
+            },
+            "serve": {
+              "executor": "@nrwl/node:node",
+              "options": {
+                "buildTarget": "backend:build"
+              }
+            },
+            "lint": {
+              "executor": "@nrwl/linter:eslint",
+              "outputs": [
+                "{options.outputFile}"
+              ],
+              "options": {
+                "lintFilePatterns": [
+                  "packages/backend/**/*.ts"
+                ]
+              }
+            },
+            "test": {
+              "executor": "@nrwl/jest:jest",
+              "outputs": [
+                "coverage/packages/backend"
+              ],
+              "options": {
+                "jestConfig": "packages/backend/jest.config.ts",
+                "passWithNoTests": true
+              }
+            }
+          },
+          "tags": [],
+          "files": [
+            {
+              "file": "packages/backend/.eslintrc.json",
+              "hash": "9d9c0db55bb1e91c5f2e7b64a02bc6bf69fc7cb5"
+            },
+            {
+              "file": "packages/backend/jest.config.ts",
+              "hash": "3cc14598ce2844f0e2688f18a3947e467075ff59"
+            },
+            {
+              "file": "packages/backend/project.json",
+              "hash": "224742d3562b3edfeca33c16a5594c30aa03c2d8"
+            },
+            {
+              "file": "packages/backend/src/app/.gitkeep",
+              "hash": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+            },
+            {
+              "file": "packages/backend/src/main.ts",
+              "hash": "eb7287262475b1b3bda149b12bea0be3638b1ddb",
+              "deps": [
+                "npm:express"
+              ]
+            },
+            {
+              "file": "packages/backend/tsconfig.app.json",
+              "hash": "eec612ac4d5b01cd70192ab057407f9bde87fdc4"
+            },
+            {
+              "file": "packages/backend/tsconfig.json",
+              "hash": "63dbe35fb282d5f9ac4a724607173e6316269e29"
+            },
+            {
+              "file": "packages/backend/tsconfig.spec.json",
+              "hash": "546f12877f7f05dd2e7b8782c7d6eae8189c34c0"
+            }
+          ]
+        }
+      },
+      "mock-db": {
+        "name": "mock-db",
+        "type": "lib",
+        "data": {
+          "root": "packages/mock-db",
+          "sourceRoot": "packages/mock-db/src",
+          "projectType": "library",
+          "tags": [],
+          "targets": {},
+          "files": [
+            {
+              "file": "packages/mock-db/project.json",
+              "hash": "07b01c9b4edd82bb6a0be7df0e7b97774b9d8053"
+            },
+            {
+              "file": "packages/mock-db/src/index.ts",
+              "hash": "bbc3bfb6d1aa4dc611ef7bc24e3e310ff9250ca6"
+            }
+          ]
+        }
+      }
+    },
+    "dependencies": {
+      "frontend-e2e": [
+        {
+          "source": "frontend-e2e",
+          "target": "frontend",
+          "type": "implicit"
+        }
+      ],
+      "frontend": [],
+      "backend": [],
+      "mock-db": []
+    }
+  },
+  "affectedProjects": [
+    "backend",
+    "frontend-e2e",
+    "frontend",
+    "mock-db"
+  ],
+  "criticalPath": [
+    "backend",
+    "frontend-e2e",
+    "frontend",
+    "mock-db"
+  ]
+}
