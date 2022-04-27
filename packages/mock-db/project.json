@@ -1,0 +1,6 @@
+{
+  "root": "packages/mock-db",
+  "sourceRoot": "packages/mock-db/src",
+  "projectType": "library",
+  "tags": []
+}
