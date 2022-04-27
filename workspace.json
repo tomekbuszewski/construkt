@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
-    "backend": "packages/backend"
+    "backend": "packages/backend",
+    "mock-db": "packages/mock-db"
   }
 }
