@@ -23,20 +23,14 @@
             },
             "lint": {
               "executor": "@nrwl/linter:eslint",
-              "outputs": [
-                "{options.outputFile}"
-              ],
+              "outputs": ["{options.outputFile}"],
               "options": {
-                "lintFilePatterns": [
-                  "packages/frontend-e2e/**/*.{js,ts}"
-                ]
+                "lintFilePatterns": ["packages/frontend-e2e/**/*.{js,ts}"]
               }
             }
           },
           "tags": [],
-          "implicitDependencies": [
-            "frontend"
-          ],
+          "implicitDependencies": ["frontend"],
           "files": [
             {
               "file": "packages/frontend-e2e/.eslintrc.json",
@@ -87,9 +81,7 @@
           "targets": {
             "build": {
               "executor": "@nrwl/web:webpack",
-              "outputs": [
-                "{options.outputPath}"
-              ],
+              "outputs": ["{options.outputPath}"],
               "defaultConfiguration": "production",
               "options": {
                 "compiler": "babel",
@@ -149,20 +141,14 @@
             },
             "lint": {
               "executor": "@nrwl/linter:eslint",
-              "outputs": [
-                "{options.outputFile}"
-              ],
+              "outputs": ["{options.outputFile}"],
               "options": {
-                "lintFilePatterns": [
-                  "packages/frontend/**/*.{ts,tsx,js,jsx}"
-                ]
+                "lintFilePatterns": ["packages/frontend/**/*.{ts,tsx,js,jsx}"]
               }
             },
             "test": {
               "executor": "@nrwl/jest:jest",
-              "outputs": [
-                "coverage/packages/frontend"
-              ],
+              "outputs": ["coverage/packages/frontend"],
               "options": {
                 "jestConfig": "packages/frontend/jest.config.ts",
                 "passWithNoTests": true
@@ -194,16 +180,12 @@
             {
               "file": "packages/frontend/src/app/app.spec.tsx",
               "hash": "5587996cba96d9535292e0fd083e1dfca1e9baa2",
-              "deps": [
-                "npm:@testing-library/react"
-              ]
+              "deps": ["npm:@testing-library/react"]
             },
             {
               "file": "packages/frontend/src/app/app.tsx",
               "hash": "674b52b1cef7928190c03671dc2b763b8b2ef84c",
-              "deps": [
-                "npm:styled-components"
-              ]
+              "deps": ["npm:styled-components"]
             },
             {
               "file": "packages/frontend/src/app/nx-welcome.tsx",
@@ -232,18 +214,12 @@
             {
               "file": "packages/frontend/src/main.tsx",
               "hash": "a50075752fb560800b2fea8d465a856615659bd3",
-              "deps": [
-                "npm:react",
-                "npm:react-dom"
-              ]
+              "deps": ["npm:react", "npm:react-dom"]
             },
             {
               "file": "packages/frontend/src/polyfills.ts",
               "hash": "41aa809057c1581b39eb2f69f1ea0c85fbed51bf",
-              "deps": [
-                "npm:core-js",
-                "npm:regenerator-runtime"
-              ]
+              "deps": ["npm:core-js", "npm:regenerator-runtime"]
             },
             {
               "file": "packages/frontend/tsconfig.app.json",
@@ -270,9 +246,7 @@
           "targets": {
             "build": {
               "executor": "@nrwl/node:webpack",
-              "outputs": [
-                "{options.outputPath}"
-              ],
+              "outputs": ["{options.outputPath}"],
               "options": {
                 "outputPath": "dist/packages/backend",
                 "main": "packages/backend/src/main.ts",
@@ -294,20 +268,14 @@
             },
             "lint": {
               "executor": "@nrwl/linter:eslint",
-              "outputs": [
-                "{options.outputFile}"
-              ],
+              "outputs": ["{options.outputFile}"],
               "options": {
-                "lintFilePatterns": [
-                  "packages/backend/**/*.ts"
-                ]
+                "lintFilePatterns": ["packages/backend/**/*.ts"]
               }
             },
             "test": {
               "executor": "@nrwl/jest:jest",
-              "outputs": [
-                "coverage/packages/backend"
-              ],
+              "outputs": ["coverage/packages/backend"],
               "options": {
                 "jestConfig": "packages/backend/jest.config.ts",
                 "passWithNoTests": true
@@ -335,9 +303,7 @@
             {
               "file": "packages/backend/src/main.ts",
               "hash": "eb7287262475b1b3bda149b12bea0be3638b1ddb",
-              "deps": [
-                "npm:express"
-              ]
+              "deps": ["npm:express"]
             },
             {
               "file": "packages/backend/tsconfig.app.json",
@@ -389,16 +355,6 @@
       "mock-db": []
     }
   },
-  "affectedProjects": [
-    "backend",
-    "frontend-e2e",
-    "frontend",
-    "mock-db"
-  ],
-  "criticalPath": [
-    "backend",
-    "frontend-e2e",
-    "frontend",
-    "mock-db"
-  ]
+  "affectedProjects": ["backend", "frontend-e2e", "frontend", "mock-db"],
+  "criticalPath": ["backend", "frontend-e2e", "frontend", "mock-db"]
 }
