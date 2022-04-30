@@ -1,7 +1,7 @@
-import { isQueryAllowed } from "../helpers/isQueryAllowed";
 import { companies } from "@construkt/mock-db";
-import { searchInArray } from "../helpers/searchInArray";
-import { searchByName } from "../helpers/searchByName";
+import { isQueryAllowed, searchByName, searchInArray } from "../helpers";
+import { GenericGet } from "../../types";
+import { ICompanies } from "../../contracts/company";
 
 const searchKeyword = "search";
 
@@ -13,8 +13,7 @@ function parseQueryValue(input: string | unknown): string | unknown {
   return input;
 }
 
-export function getCompanies(req, res) {
-  const { query } = req;
+export const getCompanies: GenericGet<ICompanies> = ({ query }, res) => {
   const parsedQuery = Object.entries(query);
   const queryAllowed = isQueryAllowed(Object.keys(query), companies[0], [
     searchKeyword,
@@ -45,4 +44,4 @@ export function getCompanies(req, res) {
   }
 
   return res.send(companies);
-}
+};

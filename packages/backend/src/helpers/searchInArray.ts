@@ -1,4 +1,4 @@
-import { BasicQueryItem } from "../../types";
+import { BasicQueryItem } from "../../contracts/common";
 
 export function searchInArray(
   needle: string | BasicQueryItem[],
