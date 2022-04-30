@@ -1,5 +1,6 @@
 import { specialities } from "@construkt/mock-db";
+import { GenericGet } from "../../types";
+import { ISpecialities } from "../../contracts/speciality";
 
-export function getSpecialities(req, res) {
-  return res.send(specialities);
-}
+export const getSpecialities: GenericGet<ISpecialities> = (_, res) =>
+  res.send(specialities);
