@@ -1,62 +1,84 @@
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+} from "react";
 import debounce from "lodash.debounce";
-
-import { ICompanies } from "@construkt/contracts/company";
 import { Button, Header, Input, PageTitle, Wrapper } from "../ui";
 
 import { FE_TEST_IDS } from "@construct/frontend/fe-test-ids";
 import { createUrl } from "../helpers/createUrl";
-import { Content, FetchState } from "../components/Content";
+import { Content } from "../components/Content";
+import {
+  APP_REDUCER_ACTIONS,
+  appReducer,
+  defaultAppReducer,
+} from "./App.state";
 
 export const App = () => {
-  const [data, setData] = useState<ICompanies>([]);
-  const [fetchState, setFetchState] = useState<FetchState>("UNKNOWN");
-  const [searchValue, setSearchValue] = useState<string>("");
-  const [filter, setFilter] = useState<[string, string] | undefined>();
+  const [state, dispatch] = useReducer(appReducer, defaultAppReducer);
 
   const _performSearch = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
 
     if (value.length >= 3) {
-      setSearchValue(e.target.value);
+      dispatch({
+        type: APP_REDUCER_ACTIONS.SET_SEARCH,
+        payload: value,
+      });
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const performSearch = useCallback(debounce(_performSearch, 500), []);
 
   const setFilterValue =
     (filterKey: "city" | "specialities") => (id: string) => {
-      setSearchValue("");
-      setFilter([filterKey, id]);
+      dispatch({
+        type: APP_REDUCER_ACTIONS.SET_FILTER,
+        payload: [filterKey, id],
+      });
     };
 
   const setCityFilter = setFilterValue("city");
   const setSpecFilter = setFilterValue("specialities");
 
   const clearAllFilters = () => {
-    setFilter(undefined);
-    setSearchValue("");
+    dispatch({
+      type: APP_REDUCER_ACTIONS.CLEAR_FILTERS,
+    });
   };
 
   const searchAndFilterUrl = useMemo(() => {
-    return createUrl({ search: searchValue, filter });
-  }, [searchValue, filter]);
+    return createUrl({ search: state.search, filter: state.filter });
+  }, [state.search, state.filter]);
 
   useEffect(() => {
     (async () => {
-      setFetchState("UNKNOWN");
+      dispatch({
+        type: APP_REDUCER_ACTIONS.SET_FETCH_STATE,
+        payload: "UNKNOWN",
+      });
 
       try {
         const fetchedData = await fetch(searchAndFilterUrl);
+        const jsonData = await fetchedData.json();
 
-        setData(await fetchedData.json());
-        setFetchState("OK");
+        dispatch({
+          type: APP_REDUCER_ACTIONS.SET_DATA,
+          payload: jsonData,
+        });
       } catch (e) {
         if (process.env["NODE_ENV"] !== "production") {
           console.warn(e);
         }
 
-        setFetchState("FAIL");
+        dispatch({
+          type: APP_REDUCER_ACTIONS.SET_FETCH_STATE,
+          payload: "FAIL",
+        });
       }
     })();
   }, [searchAndFilterUrl]);
@@ -70,16 +92,16 @@ export const App = () => {
         <Input
           placeholder="Search"
           onChange={performSearch}
-          defaultValue={searchValue}
+          defaultValue={state.search}
           data-testid={FE_TEST_IDS.SEARCH_INPUT}
         />
-        {(filter || searchValue) && (
+        {(state.filter || state.search) && (
           <Button onClick={clearAllFilters}>Clean filters</Button>
         )}
       </Header>
       <Content
-        fetchState={fetchState}
-        items={data}
+        fetchState={state.fetchState}
+        items={state.data}
         onSpecClick={setSpecFilter}
         onCityClick={setCityFilter}
       />
