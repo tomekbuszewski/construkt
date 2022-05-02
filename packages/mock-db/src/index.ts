@@ -21,7 +21,7 @@ export const companies = [
     specialities: [specialities[2], specialities[1]],
   },
   {
-    id: "zSnLHenR2t",
+    id: "zSnLHenR2x",
     name: "company-b",
     logo: "https://www.fillmurray.com/200/120",
     city: cities[0],
