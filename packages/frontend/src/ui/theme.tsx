@@ -6,6 +6,7 @@ export const theme = {
   colors: {
     background: "#fafafa",
     activeBackground: "#d5f8f0",
+    ctaBackground: "#b3eadd",
     fadedBackground: "#ddd",
     textMain: "#333",
     textSecondary: "#646464",

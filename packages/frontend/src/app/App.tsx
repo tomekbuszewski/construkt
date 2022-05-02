@@ -1,51 +1,18 @@
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { ICompanies } from "@construkt/contracts/company";
-import { CompaniesList, Loader, Wrapper } from "../ui";
-
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import debounce from "lodash.debounce";
+
+import { ICompanies } from "@construkt/contracts/company";
+import { Button, Header, Input, PageTitle, Wrapper } from "../ui";
+
 import { FE_TEST_IDS } from "@construct/frontend/fe-test-ids";
-
-const createUrl = ({
-  filter,
-  search,
-}: {
-  filter?: [string, string];
-  search?: string;
-}) => {
-  const baseUrl = process.env["NX_FRONTEND_API_HOST"] + "/companies";
-
-  const filters = filter ? Object.fromEntries([filter]) : {};
-  const params = new URLSearchParams({
-    search: search || "",
-    ...filters,
-  });
-
-  return baseUrl + "?" + params.toString();
-};
-
-type FetchState = "OK" | "FAIL" | "UNKNOWN";
+import { createUrl } from "../helpers/createUrl";
+import { Content, FetchState } from "../components/Content";
 
 export const App = () => {
   const [data, setData] = useState<ICompanies>([]);
   const [fetchState, setFetchState] = useState<FetchState>("UNKNOWN");
   const [searchValue, setSearchValue] = useState<string>("");
   const [filter, setFilter] = useState<[string, string] | undefined>();
-
-  useEffect(() => {
-    (async () => {
-      setFetchState("UNKNOWN");
-
-      try {
-        const url = createUrl({ search: searchValue, filter });
-
-        const fetchedData = await fetch(url);
-        setData(await fetchedData.json());
-        setFetchState("OK");
-      } catch {
-        setFetchState("FAIL");
-      }
-    })();
-  }, [searchValue, filter]);
 
   const _performSearch = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
@@ -66,40 +33,58 @@ export const App = () => {
   const setCityFilter = setFilterValue("city");
   const setSpecFilter = setFilterValue("specialities");
 
-  const disableFilter = () => {
+  const clearAllFilters = () => {
     setFilter(undefined);
     setSearchValue("");
   };
 
-  if (fetchState === "UNKNOWN") {
-    return <Loader data-testid={FE_TEST_IDS.LOADER} />;
-  }
+  const searchAndFilterUrl = useMemo(() => {
+    return createUrl({ search: searchValue, filter });
+  }, [searchValue, filter]);
 
-  if (fetchState === "OK") {
-    return (
-      <Wrapper>
-        <input
+  useEffect(() => {
+    (async () => {
+      setFetchState("UNKNOWN");
+
+      try {
+        const fetchedData = await fetch(searchAndFilterUrl);
+
+        setData(await fetchedData.json());
+        setFetchState("OK");
+      } catch (e) {
+        if (process.env["NODE_ENV"] !== "production") {
+          console.warn(e);
+        }
+
+        setFetchState("FAIL");
+      }
+    })();
+  }, [searchAndFilterUrl]);
+
+  return (
+    <Wrapper>
+      <Header>
+        <PageTitle onClick={clearAllFilters}>
+          {process.env["NX_FRONTEND_TITLE"]}
+        </PageTitle>
+        <Input
+          placeholder="Search"
           onChange={performSearch}
           defaultValue={searchValue}
           data-testid={FE_TEST_IDS.SEARCH_INPUT}
         />
         {(filter || searchValue) && (
-          <button onClick={disableFilter}>Clean filters</button>
+          <Button onClick={clearAllFilters}>Clean filters</Button>
         )}
-        {data.length > 0 ? (
-          <CompaniesList
-            items={data}
-            onCityClick={setCityFilter}
-            onSpecClick={setSpecFilter}
-          />
-        ) : (
-          <div>No results</div>
-        )}
-      </Wrapper>
-    );
-  }
-
-  return <div>Sorry, there was an error</div>;
+      </Header>
+      <Content
+        fetchState={fetchState}
+        items={data}
+        onSpecClick={setSpecFilter}
+        onCityClick={setCityFilter}
+      />
+    </Wrapper>
+  );
 };
 
 export default App;

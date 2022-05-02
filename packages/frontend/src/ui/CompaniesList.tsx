@@ -23,7 +23,7 @@ export interface IFilterActions {
   onSpecClick?: (id: string) => void;
 }
 
-interface CompaniesListProps extends IFilterActions {
+export interface CompaniesListProps extends IFilterActions {
   items: ICompanies;
 }
 
