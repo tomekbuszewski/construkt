@@ -23,6 +23,9 @@
       ],
       "@construkt/contracts/*": [
         "packages/backend/contracts/*"
+      ],
+      "@construct/frontend/fe-test-ids": [
+        "packages/frontend/src/test-ids.ts"
       ]
     }
   },
