@@ -4,12 +4,14 @@ import { FC, ReactNode } from "react";
 
 export const theme = {
   colors: {
-    background: "#fafafa",
-    activeBackground: "#d5f8f0",
-    ctaBackground: "#b3eadd",
-    fadedBackground: "#ddd",
+    backgroundMain: "#fafafa",
+    backgroundActive: "#d5f8f0",
+    backgroundCta: "#b3eadd",
+    backgroundFaded: "#ddd",
+    backgroundError: "#e3cece",
     textMain: "#333",
     textSecondary: "#646464",
+    textError: "#9d0b0b",
   },
   media: {
     medium: "min-width: 768px",

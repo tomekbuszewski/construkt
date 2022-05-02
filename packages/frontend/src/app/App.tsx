@@ -20,7 +20,7 @@ import {
 export const App = () => {
   const [state, dispatch] = useReducer(appReducer, defaultAppReducer);
 
-  const _performSearch = (e: ChangeEvent<HTMLInputElement>): void => {
+  const performSearchRaw = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
 
     if (value.length >= 3) {
@@ -32,7 +32,7 @@ export const App = () => {
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const performSearch = useCallback(debounce(_performSearch, 500), []);
+  const performSearch = useCallback(debounce(performSearchRaw, 500), []);
 
   const setFilterValue =
     (filterKey: "city" | "specialities") => (id: string) => {
@@ -55,6 +55,11 @@ export const App = () => {
     return createUrl({ search: state.search, filter: state.filter });
   }, [state.search, state.filter]);
 
+  const fetchData = async (query: string) => {
+    const fetchedData = await fetch(query);
+    return await fetchedData.json();
+  };
+
   useEffect(() => {
     (async () => {
       dispatch({
@@ -63,12 +68,9 @@ export const App = () => {
       });
 
       try {
-        const fetchedData = await fetch(searchAndFilterUrl);
-        const jsonData = await fetchedData.json();
-
         dispatch({
           type: APP_REDUCER_ACTIONS.SET_DATA,
-          payload: jsonData,
+          payload: await fetchData(searchAndFilterUrl),
         });
       } catch (e) {
         if (process.env["NODE_ENV"] !== "production") {

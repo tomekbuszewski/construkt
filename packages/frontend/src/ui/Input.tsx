@@ -6,5 +6,5 @@ export const Input = styled.input`
   line-height: 4rem;
   padding: 0 2rem;
 
-  border: 0.125rem solid ${({ theme }) => theme.colors.fadedBackground};
+  border: 0.125rem solid ${({ theme }) => theme.colors.backgroundFaded};
 `;

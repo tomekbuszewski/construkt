@@ -10,7 +10,7 @@ interface PillProps {
 const Pill = styled.span<PillProps>`
   border-radius: 3rem;
   font-size: 1.25rem;
-  background: ${({ theme }) => theme.colors.activeBackground};
+  background: ${({ theme }) => theme.colors.backgroundActive};
   padding: 0.5rem 1rem;
   margin-right: 0.5rem;
 
@@ -40,7 +40,7 @@ const CompanyName = styled.h2`
   font-size: 2rem;
   font-weight: bold;
   margin: 1rem 0 1.5rem;
-  border-bottom: 0.125rem solid ${({ theme }) => theme.colors.fadedBackground};
+  border-bottom: 0.125rem solid ${({ theme }) => theme.colors.backgroundFaded};
   padding-bottom: 1rem;
 `;
 

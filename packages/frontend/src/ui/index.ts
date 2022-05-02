@@ -6,3 +6,4 @@ export { Input } from "./Input";
 export { Button } from "./Button";
 export { PageTitle } from "./PageTitle";
 export { Header } from "./Header";
+export { Notification } from "./Notification";
