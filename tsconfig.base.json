@@ -10,13 +10,24 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@construkt/mock-db": ["packages/mock-db/src/index.ts"]
+      "@construkt/mock-db": [
+        "packages/mock-db/src/index.ts"
+      ],
+      "@construkt/contracts/*": [
+        "packages/backend/contracts/*"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }
