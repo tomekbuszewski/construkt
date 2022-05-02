@@ -24,16 +24,21 @@ export const getCompanies: GenericGet<ICompanies> = ({ query }, res) => {
       if (queryAllowed) {
         return parsedQuery.every(([queryKey, rawQueryValue]) => {
           const queryValue = parseQueryValue(rawQueryValue);
+          const lookupSpace = company[queryKey];
 
           if (Array.isArray(queryValue)) {
-            return searchInArray(company[queryKey], queryValue as string[]);
+            return searchInArray(lookupSpace, queryValue as string[]);
           }
 
           if (queryKey === searchKeyword) {
             return searchByName(company.name, queryValue as string);
           }
 
-          return company[queryKey].id === queryValue;
+          if (Array.isArray(lookupSpace)) {
+            return lookupSpace.find(({ id }) => id === queryValue);
+          }
+
+          return lookupSpace.id === queryValue;
         });
       }
 
