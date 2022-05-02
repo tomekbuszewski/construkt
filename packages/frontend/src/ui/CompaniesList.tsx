@@ -4,10 +4,6 @@ import { ICompanies } from "@construkt/contracts/company";
 import styled from "styled-components";
 import { FE_TEST_IDS } from "../test-ids";
 
-interface CompaniesListProps {
-  items: ICompanies;
-}
-
 const StyledCompaniesList = styled.ul`
   display: grid;
   gap: 1rem;
@@ -22,10 +18,28 @@ const StyledCompaniesList = styled.ul`
   }
 `;
 
-export const CompaniesList: VFC<CompaniesListProps> = ({ items }) => (
+export interface IFilterActions {
+  onCityClick?: (id: string) => void;
+  onSpecClick?: (id: string) => void;
+}
+
+interface CompaniesListProps extends IFilterActions {
+  items: ICompanies;
+}
+
+export const CompaniesList: VFC<CompaniesListProps> = ({
+  items,
+  onSpecClick,
+  onCityClick,
+}) => (
   <StyledCompaniesList data-testid={FE_TEST_IDS.COMPANIES_WRAPPER}>
     {items.map((item) => (
-      <Company {...item} key={item.id} />
+      <Company
+        {...item}
+        key={item.id}
+        onCityClick={onCityClick}
+        onSpecClick={onSpecClick}
+      />
     ))}
   </StyledCompaniesList>
 );

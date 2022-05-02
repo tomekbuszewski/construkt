@@ -1,13 +1,24 @@
 import { VFC } from "react";
 import { ICompany } from "@construkt/contracts/company";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { IFilterActions } from "./CompaniesList";
 
-const Pill = styled.span`
+interface PillProps {
+  clickable?: boolean;
+}
+
+const Pill = styled.span<PillProps>`
   border-radius: 3rem;
   font-size: 1.25rem;
   background: ${({ theme }) => theme.colors.activeBackground};
   padding: 0.5rem 1rem;
   margin-right: 0.5rem;
+
+  ${({ clickable }) =>
+    clickable &&
+    css`
+      cursor: pointer;
+    `}
 `;
 
 const CompanyWrapper = styled.li`
@@ -43,20 +54,45 @@ const CompanyDetail = styled.p`
   }
 `;
 
-export const Company: VFC<ICompany> = ({ name, logo, specialities, city }) => (
-  <CompanyWrapper>
-    <div>
-      <CompanyImage src={logo} alt={`Logo of ${name}`} title={name} />
-    </div>
-    <CompanyName>{name}</CompanyName>
-    <CompanyDetail>
-      Area: <Pill>{city.name}</Pill>
-    </CompanyDetail>
-    <CompanyDetail>
-      Specialities:{" "}
-      {specialities.map((spec) => (
-        <Pill key={spec.id}>{spec.name}</Pill>
-      ))}
-    </CompanyDetail>
-  </CompanyWrapper>
-);
+interface CompanyProps extends ICompany, IFilterActions {}
+
+export const Company: VFC<CompanyProps> = ({
+  name,
+  logo,
+  specialities,
+  city,
+  onCityClick,
+  onSpecClick,
+}) => {
+  return (
+    <CompanyWrapper>
+      <div>
+        <CompanyImage src={logo} alt={`Logo of ${name}`} title={name} />
+      </div>
+      <CompanyName>{name}</CompanyName>
+      <CompanyDetail>
+        Area:{" "}
+        <Pill
+          clickable={Boolean(onCityClick)}
+          data-city={city.id}
+          onClick={() => onCityClick && onCityClick(city.id)}
+        >
+          {city.name}
+        </Pill>
+      </CompanyDetail>
+      <CompanyDetail>
+        Specialities:{" "}
+        {specialities.map((spec) => (
+          <Pill
+            clickable={Boolean(onSpecClick)}
+            data-spec={spec.id}
+            key={spec.id}
+            onClick={() => onSpecClick && onSpecClick(spec.id)}
+          >
+            {spec.name}
+          </Pill>
+        ))}
+      </CompanyDetail>
+    </CompanyWrapper>
+  );
+};
