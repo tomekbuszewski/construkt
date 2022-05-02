@@ -13,21 +13,26 @@ type SetDataAction = {
   type: APP_REDUCER_ACTIONS.SET_DATA;
   payload: ICompanies;
 };
+
 type SetFetchStateAction = {
   type: APP_REDUCER_ACTIONS.SET_FETCH_STATE;
   payload: FetchState;
 };
+
 type SetFilterAction = {
   type: APP_REDUCER_ACTIONS.SET_FILTER;
   payload: [string, string] | undefined;
 };
+
 type SetSearchAction = {
   type: APP_REDUCER_ACTIONS.SET_SEARCH;
   payload: string;
 };
+
 type ClearFiltersAction = {
   type: APP_REDUCER_ACTIONS.CLEAR_FILTERS;
 };
+
 type AppActions =
   | SetDataAction
   | SetFetchStateAction
