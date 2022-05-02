@@ -29,8 +29,8 @@ export interface CompaniesListProps extends IFilterActions {
 
 export const CompaniesList: VFC<CompaniesListProps> = ({
   items,
-  onSpecClick,
   onCityClick,
+  onSpecClick,
 }) => (
   <StyledCompaniesList data-testid={FE_TEST_IDS.COMPANIES_WRAPPER}>
     {items.map((item) => (
