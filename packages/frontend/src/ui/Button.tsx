@@ -9,6 +9,6 @@ export const Button = styled.button`
   cursor: pointer;
 
   border: 0;
-  background: ${({ theme }) => theme.colors.ctaBackground};
+  background: ${({ theme }) => theme.colors.backgroundCta};
   color: ${({ theme }) => theme.colors.textMain};
 `;
