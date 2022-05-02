@@ -3,8 +3,17 @@ import reset from "styled-reset";
 import { FC, ReactNode } from "react";
 
 export const theme = {
-  background: "#fafafa",
-  textMain: "#333",
+  colors: {
+    background: "#fafafa",
+    activeBackground: "#d5f8f0",
+    fadedBackground: "#ddd",
+    textMain: "#333",
+    textSecondary: "#646464",
+  },
+  media: {
+    medium: "min-width: 768px",
+    large: "min-width: 1120px",
+  },
 };
 
 const GlobalStyle = createGlobalStyle`
