@@ -12,6 +12,9 @@
     "all:test": "nx run-many --target test --all",
     "all:build": "nx run-many --target build --all"
   },
+  "engines": {
+    "node": "14.15.0"
+  },
   "private": true,
   "dependencies": {
     "core-js": "^3.6.5",
