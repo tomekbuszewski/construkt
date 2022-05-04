@@ -6,4 +6,4 @@ services:
     command: >
       sh -c "npm run backend:serve"
     ports:
-      - "8080:3456"
+      - "8080:8080"

@@ -7,5 +7,8 @@ RUN CYPRESS_INSTALL_BINARY=0 npm i
 
 COPY . ./
 
-RUN npm run backend:build && npm run backend:serve
+RUN npm run backend:build
 
+EXPOSE 8080
+
+CMD ["node", "dist/packages/backend/main.js"]

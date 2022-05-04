@@ -17,9 +17,12 @@ router.route(ROUTES.CITIES).get(getCities);
 router.route(ROUTES.SPECIALITIES).get(getSpecialities);
 
 if (process.env.NODE_ENV !== "test") {
-  const port = process.env.NX_BACKEND_PORT || 3333;
-  const server = app.listen(port, () => {
-    console.log(`Listening at http://localhost:${port}${ROUTES.API_MAIN}`);
+  const port =
+    (process.env.NX_BACKEND_PORT && Number(process.env.NX_BACKEND_PORT)) ||
+    3456;
+  const host = "0.0.0.0";
+  const server = app.listen(port, host, () => {
+    console.log(`Listening at http://${host}:${port}${ROUTES.API_MAIN}`);
   });
   server.on("error", console.error);
 }
