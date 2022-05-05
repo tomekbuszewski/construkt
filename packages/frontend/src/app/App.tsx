@@ -34,6 +34,15 @@ export const App = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const performSearch = useCallback(debounce(performSearchRaw, 500), []);
 
+  const searchAndUpdate = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: APP_REDUCER_ACTIONS.SET_TEMP_SEARCH,
+      payload: e.target.value,
+    });
+
+    performSearch(e);
+  };
+
   const setFilterValue =
     (filterKey: "city" | "specialities") => (id: string) => {
       dispatch({
@@ -93,8 +102,8 @@ export const App = () => {
         </PageTitle>
         <Input
           placeholder="Search"
-          onChange={performSearch}
-          defaultValue={state.search}
+          onChange={searchAndUpdate}
+          value={state.tempSearch}
           data-testid={FE_TEST_IDS.SEARCH_INPUT}
         />
         {(state.filter || state.search) && (
